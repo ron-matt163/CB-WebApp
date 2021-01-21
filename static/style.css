@@ -1,0 +1,27 @@
+/* @font-face {
+    font-family: RobotoCondensed;
+    src: {{ url_for('static', filename='roboto-condensed.ttf') }};
+    font-weight:800;
+}
+
+@font-face {
+    font-family: EconomicaBold;
+    src: {{ url_for('static', filename='economica-bold.ttf') }};
+}
+ */
+
+
+body {
+    background-color: #faefd1;
+    font-family: 'Roboto Condensed', sans-serif;
+    margin:60px;
+}
+
+
+h1,h2,h3,h4,h5 {
+    text-align:center;
+    font-family: 'Economica', sans-serif;
+    margin: 30px;
+    font-size: 4em;
+}
+
