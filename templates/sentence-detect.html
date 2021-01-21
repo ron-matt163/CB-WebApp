@@ -1,58 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="#">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Economica:wght@700&family=Roboto+Condensed:wght@300&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href= "{{ url_for('static',filename='style.css') }}">  
-    <title>Cyberbullying Detection</title>
-    <style>
-      body {
-        margin: 0;
-        font-family: Arial, Helvetica, sans-serif;
-      }
-      
-      .topnav {
-        overflow: hidden;
-        background-color: #333;
-      }
-      
-      .topnav a {
-        float: left;
-        color: #f2f2f2;
-        text-align: center;
-        padding: 14px 16px;
-        text-decoration: none;
-        font-size: 17px;
-      }
-      
-      .topnav a:hover {
-        background-color: #ddd;
-        color: black;
-      }
-      
-      .topnav a.active {
-        background-color: #4CAF50;
-        color: white;
-      }
-      </style>
-</head>
-<body>
-    <div class="topnav">
-      <a class="active" href="/">Home</a>
-      <a href="/sqt">Search query tweet</a>
-      <a href="/tttc">Trending topic tweet collection</a>
-      <a href="/about">About</a>
-    </div> 
+{% extends 'base.html' %}
+{% block content %}
     <div>
         <h1>Detecting Cyberbullying</h1>
         <p style="font-size: 30px; text-align: center;">Enter a sentence/phrase and our model will determine whether it has malicious intent or not.<p>
     </div>
     <hr />
-    <form name="bullyCheck" method="POST" style="align-content: center; margin-left: 190px; margin-top: 60px;" action="/">
+    <form name="bullyCheck" method="POST" style="align-content: center; margin-left: 250px; margin-top: 60px;" action="/">
         <div class="form-group" style="align-content: center;">
           <label for="bullyText" style="float: left; margin-right: 30px; margin-top: 7.5px;">Enter sentence to be tested:</label>
           <input type="text" class="form-control" id="bullyText" style="width:1000px; float: left;" name="bullyText">
@@ -70,5 +23,5 @@
         {% endif %}
         {% endwith %}
     </div>
-</body>
-</html>
+{% endblock %}
+

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div>
+        <h1>Tweets Classified as bullying from the collected tweets</h1>
+    </div>
+    <hr />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Possible offensive tweet</th>
+                <th>Offender</th>
+                <th>Victim</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for bully_tweet in bully_tweets %}
+            <tr>
+                <td>{{bully_tweet[2]}}</td>
+                <td>{{bully_tweet[0]}}</td>
+                <td>{{bully_tweet[1]}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
