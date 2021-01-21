@@ -48,27 +48,7 @@
       <a href="/about">About</a>
     </div> 
     <div>
-        <h1>Detecting Cyberbullying</h1>
-        <p style="font-size: 30px; text-align: center;">Enter a sentence/phrase and our model will determine whether it has malicious intent or not.<p>
-    </div>
-    <hr />
-    <form name="bullyCheck" method="POST" style="align-content: center; margin-left: 190px; margin-top: 60px;" action="/">
-        <div class="form-group" style="align-content: center;">
-          <label for="bullyText" style="float: left; margin-right: 30px; margin-top: 7.5px;">Enter sentence to be tested:</label>
-          <input type="text" class="form-control" id="bullyText" style="width:1000px; float: left;" name="bullyText">
-        </div>
-        <button type="submit" style="float: left; margin-left: 25px;">Submit</button>
-    </form>
-    <div style="margin-top: 200px;">
-        {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-        <ul>
-          {% for category,message in messages %}
-            <li class="alert alert-{{category}}">{{message}}</li>
-          {% endfor %}
-        </ul>
-        {% endif %}
-        {% endwith %}
+        <h1>Search Query Tweet</h1>
     </div>
 </body>
 </html>
