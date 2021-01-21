@@ -44,6 +44,14 @@ def start_page():
                 flash('Failed to add question due to some error','danger')
     return render_template("sentence-detect.html")
 
+@app.route('/sqt')
+def searchquerytweet(): 
+    return render_template("search-query-tweet.html")
+
+@app.route('/tttc')
+def trendingtopictweetcollection(): 
+    return render_template("trending-topic-tweet-collection.html")    
+
 if __name__ == "__main__":
     try:
         app.run(debug=True)
