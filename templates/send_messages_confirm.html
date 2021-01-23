@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<div>
+    <h1>Send Messages to Victims and Offenders</h1>
+    <p style="font-size: 30px; text-align: center;">Messages can be sent only those users with unrestricted/open Direct Messaging<p>
+</div>
+<hr />
+<div>
+    <h4 style="font-size: 25px;">Offenders</h4>
+    {% for offender in offenders %}
+        <p style="text-align: center;">{{offender}}</p>
+    {% endfor %}
+</div>
+<div>
+    <h4 style="font-size: 25px;">Victims</h4>
+    {% for victim in victims %}
+        <p style="text-align: center;">{{victim}}</p>
+    {% endfor %}
+</div>
+<hr />
+<div style="text-align: center; margin: auto; width: 50%; padding: 10px;">
+    <p style="font-size: 25px;">Appropriate messages have been sent to the above mentioned offenders and victims (if unrestricted)</p>
+    <a href="https://twitter.com/home" style="font-size: 20px;">Please check Twitter DMs to confirm</a>
+</div>
+{% endblock %}

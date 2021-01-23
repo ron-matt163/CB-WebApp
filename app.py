@@ -13,11 +13,12 @@ import sys
 # Fill the X's with the credentials obtained by  
 # following the above mentioned procedure. 
 
-consumer_key = "0VVJldZQQGC3L61nBwRFwPzQu" 
-consumer_secret = "HEGgY2iZ8P8yKNIgcEtmFQEytCL6IswOCI1O1vimpjciPmFPtd"
-access_key = "1075785913815445506-tyt6e1UxJ6c4CAQbk5fkqFFDCixA2M"
-access_secret = "BvRTNn2OTZ3gkUZT13NuaV1rg3r2QjiERwCUEXpE2S5zc"
-  
+consumer_key = "ac8YRucGrIbNHUcD2IYqpfp4s" 
+consumer_secret = "ymifAZlIIJAVDqGfxcrVcmPCiEXYhxRUqyh43KVvyxmuuYG2s3"
+access_key = "1033620667155984384-uKKn6iHzAan304XrH5nU8evIQJUwak"
+access_secret = "6TcRuKZE4EGx5F2XTCavopZdttlw380Ms8MoyyMqZqiS2"
+
+
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_key,access_secret)
 api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify = True,retry_count = 5,retry_delay = 5)
@@ -72,16 +73,17 @@ def searchquerytweet():
             flash('Error in entered data. Please check if the number you have entered is an integer.')
     return render_template("search-query-tweet.html")
 
-@app.route('/showTweets/<query>/<tweet_limit>')
+@app.route('/showTweets/<query>/<tweet_limit>',methods=['GET','POST'])
 def printstats(query,tweet_limit):
     global st_count
     bully_records = []
+    tweet_count = 0
+    bully_count = 0
+    percentage = 0.0
     if st_count == 0:
         tweet_limit = int(tweet_limit)
         print("Tweets to be collected with search keyword: " + query)
-        tweet_count = 0
-        bully_count = 0
-        date_since = '2021-01-20'
+        date_since = '2021-01-23'
         c=0
         tweets = tweepy.Cursor(api.search, q=query,lang="en", since=date_since,result_type='popular', timeout=999999).items(10)
         for tweet in tweets:
@@ -111,12 +113,62 @@ def printstats(query,tweet_limit):
                         bully_row.append(poster)
                         bully_row.append(reply.text)
                         bully_records.append(bully_row)
-                if tweet_count>tweet_limit:
+                if tweet_count>=tweet_limit:
                     break    
-            if tweet_count>tweet_limit:
-                break  
+            if tweet_count>=tweet_limit:
+                break
+        percentage = round((100*float(bully_count)/tweet_count),2)  
         st_count +=1
-    return render_template('show_tweets.html',bully_tweets=bully_records)
+    return render_template('show_tweets.html',bully_tweets=bully_records,tweet_count=tweet_count,bully_count=bully_count,percentage=percentage)
+
+@app.route('/sendmessages',methods=['GET','POST'])
+def sendmessages():
+    offenders = []
+    victims = []
+    if request.method == 'POST':
+        form = request.form.getlist('checking')
+        for usernamex2 in form:
+            username = usernamex2.split(' ')
+            offenders.append(username[0])
+            victims.append(username[1])
+        offenders = list(dict.fromkeys(offenders))
+        victims = list(dict.fromkeys(victims))
+        print("Offenders" + str(offenders))
+        print("Victims" + str(victims))
+    return render_template('send_messages.html',offenders=offenders,victims=victims)
+
+@app.route('/sendmessagesconfirm',methods=['GET','POST'])
+def sendmessagesconfirm():
+    offenders = []
+    victims = []
+    if request.method == 'POST':
+        offenders = request.form.getlist('offenderNames')
+        victims = request.form.getlist('victimNames')
+        offenderMessage = request.form.getlist('offenderMessage')
+        victimMessage = request.form.getlist('victimMessage')
+        offenderMessage = offenderMessage[0]
+        victimMessage = victimMessage[0]
+        print("Offenders" + str(offenders))
+        print("Victims" + str(victims))
+        print("Offender Message" + str(offenderMessage))
+        print("Victim Message" + str(victimMessage))
+        for offender in offenders:
+           recipient_id = api.get_user(offender).id
+           try:
+               api.send_direct_message(recipient_id,offenderMessage)
+               print("Message sent to offender")
+           except tweepy.TweepError as e:
+               print(e.reason)
+
+        for victim in victims:
+           recipient_id = api.get_user(victim).id
+           try:
+               api.send_direct_message(recipient_id,victimMessage)
+               print("Message sent to victim")
+           except tweepy.TweepError as e:
+               print(e.reason)
+
+    return render_template('send_messages_confirm.html',offenders=offenders,victims=victims)
 
 
 @app.route('/tttc')

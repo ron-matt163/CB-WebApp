@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div>
+        <h1>Send Messages to Victims and Offenders</h1>
+        <p style="font-size: 30px; text-align: center;">Messages can be sent only those users with unrestricted/open Direct Messaging<p>
+    </div>
+    <hr />
+    <div>
+        <h4 style="font-size: 25px;">Offenders</h4>
+        {% for offender in offenders %}
+            <p style="text-align: center;">{{offender}}</p>
+        {% endfor %}
+    </div>
+    <div>
+        <h4 style="font-size: 25px;">Victims</h4>
+        {% for victim in victims %}
+            <p style="text-align: center;">{{victim}}</p>
+        {% endfor %}
+    </div>
+    <hr />
+    <div>
+        <form name="queryCollect" method="POST" style="align-content: center; margin-left: 250px; margin-top: 60px;" action="/sendmessagesconfirm">
+            <div class="form-group" style="align-content: center;">
+              <label for="offenderMessage" style="float: left; margin-right: 30px; margin-top: 7.5px;">Message to the offenders:</label>
+              <input type="text" class="form-control" id="offenderMessage" style="width:1000px; float: left;" name="offenderMessage" 
+              value="Please be more careful next time">
+              <br><br>
+              <label for="victimMessage" style="float: left; margin-right: 45px; margin-top: 7.5px;">Message to the victims:</label>
+              <input type="text" class="form-control" id="victimMessage" style="width:1000px; float: left;" name="victimMessage"
+              value="I hope you are OK">
+            </div>
+            <br><br><br>
+            <button type="submit" name ="btn" style="margin-left: 260px;" value="Send">Send</button>
+            {% for offender in offenders %}
+            <input style="display: none;" value={{offender}} name="offenderNames">
+            {% endfor %}
+            {% for victim in victims %}
+            <input style="display: none;" value={{victim}} name="victimNames">
+            {% endfor %}
+        </form>
+    </div>
+{% endblock %}

@@ -2,25 +2,62 @@
 {% block content %}
     <div>
         <h1>Tweets Classified as bullying from the collected tweets</h1>
+        <p style="font-size: 30px; text-align: center;">Click on confirm to send messages to victims and offenders<p>
     </div>
     <hr />
     <table class="table">
         <thead>
             <tr>
+                <th>Confirm</th>
                 <th>Possible offensive tweet</th>
                 <th>Offender</th>
                 <th>Victim</th>
             </tr>
         </thead>
         <tbody>
+            <form name="selectList" method="POST" action="/sendmessages">
+            <div class="form-check">
             {% for bully_tweet in bully_tweets %}
             <tr>
+                <td><input name="checking" class="form-check-input" type="checkbox" value="{{bully_tweet[0]}} {{bully_tweet[1]}}" id={{bully_tweet[2]}}></td>
                 <td>{{bully_tweet[2]}}</td>
                 <td>{{bully_tweet[0]}}</td>
                 <td>{{bully_tweet[1]}}</td>
             </tr>
             {% endfor %}
+            </div>
+            <button type="submit" style="margin-left: 850px; margin-bottom: 50px; width: 200px;">Confirm</button>
+            </form>
         </tbody>
     </table>
 
+    <br>
+    <div style="margin-left:600px;">
+        <div style="display: inline-block;">
+            <div>
+                <h4 style="font-size: 20px;">Total No. of tweets collected</h4>
+            </div>
+            <div>
+                <h2 style="font-size: 40px;">{{tweet_count}}</h2>
+            </div>
+        </div>
+
+        <div style="display: inline-block; ">
+            <div>
+                <h4 style="font-size: 20px;">No. of possible offensive tweets</h4>
+            </div>
+            <div>
+                <h2 style="font-size: 40px;">{{bully_count}}</h2>
+            </div>
+        </div>
+
+        <div style="display: inline-block; ">
+            <div>
+                <h4 style="font-size: 20px;">Percentage of possible offensive tweets</h4>
+            </div>
+            <div>
+                <h2 style="font-size: 40px;">{{percentage}}</h2>
+            </div>
+        </div>
+    </div>
 {% endblock %}
