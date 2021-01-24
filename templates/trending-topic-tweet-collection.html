@@ -2,5 +2,35 @@
 {% block content %}
     <div>
         <h1>Trending Topic Tweet Collection</h1>
+        <p style="font-size: 30px; text-align: center;">Select the trending topics in {{location}} that are relevant<p>
     </div>
+    
+    <table class="table" id="loadermessage">
+        <form name="selectList" method="POST" action="/showtweetstttc">
+            <div class="form-check">
+                <thead>
+                    <tr>
+                        <th style="padding-left: 20px; margin-left: 70px;">Select</th>
+                        <th style="padding-left: 20px; margin-left: 70px;">Topic</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for trend in trends_in_location %}
+                        <tr>
+                            <td style="padding-left: 20px; margin-left: 70px;"><input name="selectedTrends" class="form-check-input" type="checkbox" value={{trend}} id={{trend}}></td>
+                            <td style="padding-left: 20px; margin-left: 70px;">{{trend}}</td>
+                        </tr>
+                    {% endfor %}                    
+                </tbody>
+            </div>
+            <button type="submit" onclick="myFunction()" style="margin-left: 850px; margin-bottom: 50px; width: 200px;">Select</button>
+        </form>
+    </table>
+    <div id="loadertext" style="display:none; text-align: center; margin: auto; width: 50%; padding: 10px;">
+        <p style="font-size: 25px;">Please wait. The tweets are being loaded and classified.</p>
+        <p style="font-size: 15px;">Tweet collection progress can be viewed on the terminal.</p>
+    </div>
+    <div id="loader" style="display: none; text-align: center; margin: auto; padding: 10px;">
+
+
 {% endblock %}

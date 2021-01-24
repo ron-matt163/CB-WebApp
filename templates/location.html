@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <ul>
+        {% for category,message in messages %}
+            <li class="alert alert-{{category}}">{{message}}</li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+    </div>
+    <div>
+        <h1>Trending Topic Tweet Collection</h1>
+    </div>
+
+    <form name="locationForm" method="POST" style="align-content: center; margin-left: 250px; margin-top: 60px;" action="/tttc">
+        <div class="form-group" style="align-content: center;">
+            <label for="location" style="float: left; margin-right: 30px; margin-top: 7.5px;">Enter location:</label>
+            <input type="text" class="form-control" id="location" style="width:1000px; float: left;" name="location">
+        </div>
+        <button type="submit" onclick="myFunction()" style="float: left; margin-left: 25px;">Submit</button>
+    </form>
+
+    <br><br><br>
+    <div id="loadermessage" style="display:none; text-align: center; margin: auto; width: 50%; padding: 10px;">
+        <p style="font-size: 25px;">Loading trending topics</p>
+    </div>
+    <div id="loader" style="display: none; text-align: center; margin: auto; padding: 10px;">
+    </div>
+{% endblock %}
